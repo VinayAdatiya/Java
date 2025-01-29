@@ -71,7 +71,9 @@ public class Example1 {
         //Infinite Stream
         System.out.println("\nInfinite Stream using generate() :- ");
         Stream<String> stream3 = Stream.generate(()->"Value").limit(3);
+        Stream<Integer> stream5 = Stream.generate(()->new Random().nextInt(100)).limit(5);
         stream3.forEach(System.out::println);
+        stream5.forEach(System.out::println);
 
         System.out.println("\nInfinite Stream using iterate() :- ");
         Stream<Integer> stream4 = Stream.iterate(0,n->n+1).filter(n->n%2==0).limit(10);
@@ -87,5 +89,16 @@ public class Example1 {
         System.out.println("using .stream().parallel()");
         Stream<Integer> streaml2 = l1.stream().parallel();
         streaml2.forEach(System.out::println);
+
+
+        // Difference Between Arrays.stream() and Stream.of()
+        // For primitives arrays (like int[], long[] etc), Arrays.stream() and Stream.of() have different return types.
+        // Example: Passing an integer array, the Stream.of() method returns Stream whereas Arrays.stream() returns an IntStream.
+        int arr[] = { 1, 2, 3, 4, 5 };
+        IntStream intStream = Arrays.stream(arr);
+        intStream.forEach(str -> System.out.print(str + " "));
+
+        Stream<int[]> stream = Stream.of(arr);
+        stream.forEach(str -> System.out.print(str + " "));
     }
 }
